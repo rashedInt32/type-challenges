@@ -23,6 +23,11 @@
 
 /* _____________ Your Code Here _____________ */
 
+// T extends any[] = T ------> type[] e.g. nubmer[], string[]
+// T extends any[] = [...T] ------> preserve original tuple/array  e.g. [1, 3, 'hi'] as const, [1, 2, 3]
+// [K in keyof T] return index of tuple/array "0" | "1" | "2" | "length" | ...
+// when used  inside mapped type, it will iterate only over the numeric indexes of the tuple/array
+
 declare function PromiseAll<T extends any[]>(
   values: [...T],
 ): Promise<{
