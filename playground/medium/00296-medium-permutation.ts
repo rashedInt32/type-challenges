@@ -20,7 +20,7 @@ type Permutation<T, U = T> = [T] extends [never]
   ? []
   : U extends U
     ? [U, ...Permutation<Exclude<T, U>>]
-    : never;
+    : [T];
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from "@type-challenges/utils";
