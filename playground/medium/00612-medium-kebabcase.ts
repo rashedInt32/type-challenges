@@ -24,22 +24,29 @@
 
 /* _____________ Your Code Here _____________ */
 
-type KebabCase<S> = any
+type KebabCase<
+  S extends string,
+  First extends boolean = true,
+> = S extends `${infer F}${infer R}`
+  ? F extends Lowercase<F>
+    ? `${F}${KebabCase<R, false>}`
+    : `${First extends true ? "" : "-"}${Lowercase<F>}${KebabCase<R, false>}`
+  : S;
 
 /* _____________ Test Cases _____________ */
-import type { Equal, Expect } from '@type-challenges/utils'
+import type { Equal, Expect } from "@type-challenges/utils";
 
 type cases = [
-  Expect<Equal<KebabCase<'FooBarBaz'>, 'foo-bar-baz'>>,
-  Expect<Equal<KebabCase<'fooBarBaz'>, 'foo-bar-baz'>>,
-  Expect<Equal<KebabCase<'foo-bar'>, 'foo-bar'>>,
-  Expect<Equal<KebabCase<'foo_bar'>, 'foo_bar'>>,
-  Expect<Equal<KebabCase<'Foo-Bar'>, 'foo--bar'>>,
-  Expect<Equal<KebabCase<'ABC'>, 'a-b-c'>>,
-  Expect<Equal<KebabCase<'-'>, '-'>>,
-  Expect<Equal<KebabCase<''>, ''>>,
-  Expect<Equal<KebabCase<'😎'>, '😎'>>,
-]
+  Expect<Equal<KebabCase<"FooBarBaz">, "foo-bar-baz">>,
+  Expect<Equal<KebabCase<"fooBarBaz">, "foo-bar-baz">>,
+  Expect<Equal<KebabCase<"foo-bar">, "foo-bar">>,
+  Expect<Equal<KebabCase<"foo_bar">, "foo_bar">>,
+  Expect<Equal<KebabCase<"Foo-Bar">, "foo--bar">>,
+  Expect<Equal<KebabCase<"ABC">, "a-b-c">>,
+  Expect<Equal<KebabCase<"-">, "-">>,
+  Expect<Equal<KebabCase<"">, "">>,
+  Expect<Equal<KebabCase<"😎">, "😎">>,
+];
 
 /* _____________ Further Steps _____________ */
 /*
