@@ -25,7 +25,7 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Mutable<T> = {
+type Mutable<T extends object> = {
   -readonly [P in keyof T]: T[P];
 };
 
