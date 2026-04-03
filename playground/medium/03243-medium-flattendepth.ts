@@ -21,20 +21,22 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MinusOne<T extends number> = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8][T]
+type MinusOne<T extends number> = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8][T];
 type FlattenDepth<T extends any[], D extends number = 1> = D extends 0
   ? T
   : T extends [infer F, ...infer R]
     ? F extends any[]
       ? [...FlattenDepth<F, MinusOne<D>>, ...FlattenDepth<R, D>]
       : [F, ...FlattenDepth<R, D>]
-    : T 
+    : T;
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from "@type-challenges/utils";
 
 type cases = [
   Expect<Equal<FlattenDepth<[]>, []>>,
+  Expect<Equal<FlattenDepth<[]>, []>>,
+
   Expect<Equal<FlattenDepth<[1, 2, 3, 4]>, [1, 2, 3, 4]>>,
   Expect<Equal<FlattenDepth<[1, [2]]>, [1, 2]>>,
   Expect<Equal<FlattenDepth<[1, 2, [3, 4], [[[5]]]], 2>, [1, 2, 3, 4, [5]]>>,
